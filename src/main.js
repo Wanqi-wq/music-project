@@ -4,7 +4,7 @@ import router from 'router'
 import fastClick from 'fastclick'
 
 
-
+import  'common/rem.js'
 import 'assets/stylus/index.styl'
 
 Vue.config.productionTip = false
