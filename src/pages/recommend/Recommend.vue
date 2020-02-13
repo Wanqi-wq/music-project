@@ -1,6 +1,7 @@
 <template>
   <div class="recommend">
     <div class="recommend-content">
+      <recommend-swiper :swiperList="swiperList"/>
       <div class="slider-wrapper"></div>
       <div class="recommend-list"> 
         <h1 class="list-title">热门歌单推荐</h1>
@@ -10,10 +11,20 @@
   </div>
 </template>
 <script>
+import RecommendSwiper from './childComps/Swiper'
+
 import { getBanner} from 'api/recommend'
 import { ERR_OK} from 'api/config'
 export default {
   name: 'Recommend',
+  data() {
+    return {
+      swiperList: []
+    } 
+  },
+  components: {
+    RecommendSwiper
+  },
   created() {
     this._getBanner()
   },
@@ -22,7 +33,8 @@ export default {
     _getBanner() {
       getBanner().then(res => {
         if(res.data.code == ERR_OK)
-        console.log(res)
+        this.swiperList = res.data.data;
+        console.log(this.swiperList)
       }).catch(err => console.log(err))
     }
   }
