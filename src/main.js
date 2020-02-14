@@ -2,7 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from 'router'
 import fastClick from 'fastclick'
+import VueLazyload from 'vue-lazyload'
 
+Vue.use(VueLazyload,{
+  preLoad: 1.3,
+  loading: require('assets/image/1.png')
+})
 
 import  'common/rem.js'
 import 'assets/stylus/index.styl'

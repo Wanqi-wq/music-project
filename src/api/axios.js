@@ -7,7 +7,7 @@ export default function(options) {
       baseURL: BaseURL,
       method: options.method,
       url: options.url,
-      data: options.data  || {}
+      params: options.params  || {}
     }).then(data => resolve(data)).catch(err => reject(err))
   })
 }

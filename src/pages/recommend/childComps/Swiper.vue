@@ -5,8 +5,7 @@
     <swiper-slide class="swiper-slide"
     v-for="item in swiperList" :key="item.id">
       <a class="swiper-link" :href="item.jump_info.url">
-        <img class="swiper-img" :src="item.pic_info.url" alt=""
-        >
+        <img class="swiper-img" :src="item.pic_info.url" @load='loadImage'/>
        </a> 
     </swiper-slide>
     
@@ -32,7 +31,8 @@ export default {
           disableOnInteraction: false,     
         } ,
         loop: true    
-      }
+      },
+      isLoad: false
     }
   },
   components:{
@@ -47,17 +47,17 @@ export default {
      }
    }
   },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper
+  methods: {
+    loadImage() {
+      //当banner图加载完成后，需要刷新better-scroll 
+      if(!this.isLoad) {
+        this.$emit('loadImage')
+        this.isLoad = true
+      }
+      
     }
   },
-  methods: {
-    imgLoad() {
-      console.log('shsfhsf')
-      this.swiper.update()
-    }
-  }
+  
 }
 </script>
 

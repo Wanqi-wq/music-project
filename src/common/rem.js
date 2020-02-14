@@ -6,6 +6,6 @@ function setRem() {
   const html = document.getElementsByTagName('html')
   html[0].style.fontSize = width / 375 * 16 + 'px'
 }
-
+setRem()
 //监听页面改变
 window.addEventListener('resize',setRem)
