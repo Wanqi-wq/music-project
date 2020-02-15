@@ -4,12 +4,15 @@
     :pullUpLoad="true"
     @pulingUp="pulingUp"
     ref="scroll">
-      <recommend-swiper :swiperList="swiperList" @loadImage="loadImage"/>
-      <div class="slider-wrapper"></div>
-      <div class="recommend-list"> 
-        <h1 class="list-title">热门歌单推荐</h1>
-        <recommend-disc-list :discList="discList.list"/>
+      <div>
+        <recommend-swiper :swiperList="swiperList" @loadImage="loadImage"/>
+        <div class="slider-wrapper"></div>
+        <div class="recommend-list"> 
+          <h1 class="list-title">热门歌单推荐</h1>
+          <recommend-disc-list :discList="discList.list"/>
+        </div>
       </div>
+      
     </recommend-scroll>
   </div>
 </template>

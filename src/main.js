@@ -6,7 +6,9 @@ import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload,{
   preLoad: 1.3,
-  loading: require('assets/image/1.png')
+  loading: require('assets/image/1.png'),
+  error:require('assets/image/children.png')
+
 })
 
 import  'common/rem.js'

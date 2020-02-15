@@ -1,8 +1,6 @@
 <template>
   <div class="wrapper" ref='wrapper'>
-    <div class="content">
       <slot></slot>
-    </div> 
   </div>
 </template>
 
@@ -24,6 +22,10 @@ export default {
     pullUpLoad:{
       type: Boolean,
       default: false
+    },
+    probeType: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
@@ -32,7 +34,8 @@ export default {
       this.scroll = new BScroll(this.$refs.wrapper,{
         //让浏览器不阻止点击事件
         click: true,
-        pullUpLoad: this.pullUpLoad
+        pullUpLoad: this.pullUpLoad,
+        probeType: this.probeType
       })
     },
     //重新获取better-scroll的高度,使页面能够正常滚动
@@ -49,6 +52,10 @@ export default {
     },
     finishPullUp() {
       this.scroll && this.scroll.finishPullUp()
+    },
+    //页面滚动
+    scrollToElement(el,time) {
+      this.scroll && this.scroll.scrollToElement(el,time=0)
     }
   },
   watch: {
