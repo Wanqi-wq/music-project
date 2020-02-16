@@ -7,12 +7,18 @@
     <ul  @touchmove='scrollMove'>
       <li v-for="(group, index) in singers" class="list-group" ref="listGroup" :key="index">
         <h2 class="list-group-title">{{group.name}}</h2>
-        <uL>
-          <li v-for="item in group.list" class="list-group-item" :key="item.singer_id">
-            <img class="avatar" v-lazy="item.singer_pic">
-            <span class="name">{{item.singer_name}}</span>
-          </li>
-        </uL>
+        <ul>
+        
+            <router-link :to="'/singer/'+item.singer_mid" tag="li" 
+            v-for="item in group.list" 
+            class="list-group-item" 
+            :key="item.singer_mid">
+              
+                <img class="avatar" v-lazy="item.singer_pic">
+                <span class="name">{{item.singer_name}}</span>
+            </router-link>
+          
+        </ul>
       </li>
     </ul>
     <div class="fixed-list" v-if="fixedTitle" ref="fixed">

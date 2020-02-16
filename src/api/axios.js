@@ -5,7 +5,7 @@ export default function(options) {
   return new Promise((resolve, reject) => {
     orignAxios({
       baseURL: BaseURL,
-      method: options.method,
+      method: options.method || 'get',
       url: options.url,
       params: options.params  || {}
     }).then(data => resolve(data)).catch(err => reject(err))

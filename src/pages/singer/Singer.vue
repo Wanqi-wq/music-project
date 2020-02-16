@@ -3,6 +3,7 @@
     <singer-list :singers="singers" :currentAlphabet="currentAlphabet"
     @changePage="changePage"/>
     <singer-alphabet :shortcutList="singerCategory" @alphabetClick="alphabetClick" :currentAlphabet="currentAlphabet2"/>
+    <router-view></router-view>
   </div>
   
 </template>

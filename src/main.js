@@ -10,7 +10,7 @@ Vue.use(VueLazyload,{
   error:require('assets/image/children.png')
 
 })
-
+//rem移动端适配
 import  'common/rem.js'
 import 'assets/stylus/index.styl'
 

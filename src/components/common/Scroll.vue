@@ -26,6 +26,10 @@ export default {
     probeType: {
       type: Number,
       default: 0
+    },
+    listenScroll: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -37,6 +41,12 @@ export default {
         pullUpLoad: this.pullUpLoad,
         probeType: this.probeType
       })
+
+      if(this.listenScroll) {
+        this.scroll && this.scroll.on('scroll', (pos) => {
+         this.$emit('scroll', pos)
+        })
+      }
     },
     //重新获取better-scroll的高度,使页面能够正常滚动
     refresh() {
