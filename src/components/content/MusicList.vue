@@ -14,10 +14,9 @@
     </div>
     <div class="bg-layer" ref="layer"></div>
     <scroll :data="songs" :listen-scroll="true" 
-    class="list" ref="list" :probeType="3" @scroll="scroll"
-    >
+    class="list" ref="list" :probeType="3" @scroll="scroll">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list :songs="songs" @select="selectSong"></song-list>
       </div>
     </scroll>
     
@@ -27,10 +26,14 @@
 <script>
   import SongList from '../common/SongList'
   import Scroll from '../common/Scroll'
+  import { playListMixin } from 'common/mixins'
+
+  import { mapActions } from 'vuex'
   const RESERVED_HEIGHT = 40
   /* const transform = prefixStyle('transform') */
 
   export default {
+    mixins:[playListMixin],
     name: 'MusicList',
     components: {
       SongList,
@@ -88,8 +91,23 @@
       //返回歌手页
       back() {
         this.$router.push('/singer')
-      }
-    } 
+      },
+      //修改vuex中修改的歌曲信息
+      selectSong({songs,index}) {
+        console.log(index)
+        this.selectSongs({songs,index})
+      },
+      //让列表距底部的宽度根据有无播放器自适应
+      handleBottom(playList) {
+        let bottom = playList && playList.length > 0 ? 60 : 0
+      
+        this.$refs.list.$el.style.bottom = bottom + 'px'
+        this.$refs.list.refresh()
+
+      },
+      ...mapActions(['selectSongs'])
+    },
+    
   }
 </script>
 

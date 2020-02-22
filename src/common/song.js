@@ -1,14 +1,31 @@
+//获取歌词
+import { getLyrics } from 'api/player'
+
 export class Song {
-  constructor({mid, singer, songname, albumname, image, lyrics, duration, url}) {
+  constructor({mid, singer, songname, albumname, image, duration, url}) {
     this.mid = mid
     this.singer = singer
     this.songname = songname
     this.albumname = albumname
     this.image = image
-    this.lyrics = lyrics
     this.duration = duration
     this.url = url
   }
+  ObtainLyrics(song) {
+    if(this.lyrics) {
+      return  Promise.resolve(this.lyrics)
+    }else{
+      return new Promise( resolve => {
+        getLyrics(song).then( res => {
+          this.lyrics = res.data
+          resolve(this.lyrics)
+        }).catch(err => {
+          console.log(err)
+        })
+
+      })
+    }  
+  } 
 }
 
 //创建song实例
@@ -19,8 +36,7 @@ export function createSong(musicData) {
             songname: musicData.songname ,
             albumname: musicData.albumname,
             image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid}`,
-            lyrics:`https://v1.itooi.cn/tencent/lrc?id=${musicData.songmid}`,
-            duration: 133,
+            duration: musicData.interval,
             url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid}`
           }) 
 }

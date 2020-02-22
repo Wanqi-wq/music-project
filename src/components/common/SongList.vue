@@ -1,11 +1,11 @@
 <template>
   <div class="song-list">
-    <ul v-for="song in songs" :key="song.mid">
+    <ul v-for="(song,index) in songs" :key="song.mid">
       <li  class="item" >
         <div class="rank" v-if="false">
           <span ></span>
         </div>
-        <div class="content">
+        <div tag="div" class="content" @click="getSong(songs,index)">
           <h2 class="name">{{song.songname}}</h2>
           <p class="desc">{{getDesc(song)}}</p>
         </div>
@@ -14,7 +14,8 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+import { mapMutations } from 'vuex'
   export default {
     name: 'SongList',
     props: {
@@ -26,6 +27,9 @@
     methods:{
       getDesc(song) {
         return `${song.singer}·${song.albumname}`
+      },
+      getSong(songs,index) {
+        this.$emit('select',{songs,index})
       }
     }
   }

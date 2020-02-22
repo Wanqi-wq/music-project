@@ -31,5 +31,8 @@ export default new VueRouter({
   },{
     path: '/rank',
     component: Rank
+  },{
+    path: '*',
+    redirect: '/recommend'
   }]
 })

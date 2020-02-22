@@ -30,9 +30,11 @@
 <script>
 import Scroll from 'components/common/Scroll'
 import { debounce } from 'common/utils'
+import { playListMixin } from 'common/mixins'
 //标题的宽度
 const TITLE_HEIGHT = 30
 export default {
+  mixins:[playListMixin],
   name: 'SingerList',
   data() {
     return {
@@ -85,8 +87,7 @@ export default {
             if(this.currentGroup == i){
               return          
             }else{  
-              this.currentGroup = i
-              console.log(this.currentAlphabet)        
+              this.currentGroup = i      
                   this.$emit('changePage', i)
             }    
             
@@ -112,7 +113,15 @@ export default {
       this.$refs.listGroup.forEach( item => {
         this.offsetList.push(item.offsetTop)
       })
-    }
+    },
+    //让列表距底部的宽度根据有无播放器自适应
+      handleBottom(playList) {
+        let bottom = playList && playList.length > 0 ? 60 : 0
+      
+        this.$refs.scroll.$el.style.bottom = bottom + 'px'
+        this.$refs.scroll.refresh()
+
+      }
   },
   watch: {
     currentAlphabet(index) {
@@ -134,7 +143,6 @@ export default {
       if(this.fixtop === fixtop) {
         return 
       }
-      console.log(fixtop)
         this.$refs.fixed.style.transform = `translate(0, ${fixtop}px)`
       this.fixtop = fixtop
      
