@@ -31,13 +31,13 @@ export class Song {
 //创建song实例
 export function createSong(musicData) {
   return new Song({
-            mid: musicData.songmid,
+            mid: musicData.songmid || musicData.mid,
             singer: singerName(musicData.singer),
-            songname: musicData.songname ,
-            albumname: musicData.albumname,
-            image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid}`,
+            songname: musicData.songname || musicData.name ,
+            albumname: musicData.albumname || musicData.album.name,
+            image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid || musicData.mid}`,
             duration: musicData.interval,
-            url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid}`
+            url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid || musicData.mid}`
           }) 
 }
 //对singer的名字进行处理，名字可能有好几个

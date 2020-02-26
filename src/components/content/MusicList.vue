@@ -3,7 +3,7 @@
     <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
-    <h1 class="title">{{singer.name}}</h1>
+    <h1 class="title">{{disc.title || singer.name }}</h1>
     <div class="bg-image"  ref="bgImage" :style="{'background-image':bgStyle}">
       <div class="play-wrapper">
         <div ref="playBtn"  class="play" v-show="songs.length">
@@ -51,17 +51,26 @@
         default() {
           return []
         }
+      },
+      disc: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
+    },
+    created() {
+      console.log(this.disc.title,this.disc)
     },
     computed: {
       bgStyle() {
-        return `url(${this.singer.img})`
+        return `url(${this.disc.image || this.singer.img})`
       }
     },
     mounted() {
      //获取list距顶部的距离
-     this.height = this.$refs.bgImage.clientHeight
-     this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
+      this.height = this.$refs.bgImage.clientHeight
+      this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
     methods: {
       scroll(pos) {
@@ -88,9 +97,14 @@
             this.$refs.bgImage.style.zIndex = 100
           }         
       },
-      //返回歌手页
+      //根据不同的url返回不同的页面
       back() {
-        this.$router.push('/singer')
+        if(this.$route.path.includes('singer')) {
+          this.$router.push('/singer')
+        }else if(this.$route.path.includes('recommend')) {
+          this.$router.push('/recommend')
+        }
+        
       },
       //修改vuex中修改的歌曲信息
       selectSong({songs,index}) {

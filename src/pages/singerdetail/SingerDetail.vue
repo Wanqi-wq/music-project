@@ -2,7 +2,7 @@
   <transition name="slide">
     
       <music-list :singer="singer" :songs="songs"/>
-   
+  
   </transition>
 </template>
 
@@ -33,7 +33,6 @@ export default {
   methods: {
     //获取歌手信息
     _getSingerDetail() {
-      console.log(this.$router)
       getSingerDetail(this.$route.params.id).then(res => {
         if(res.data.code == 200)
         this.singer.name = res.data.data.singer_info.name

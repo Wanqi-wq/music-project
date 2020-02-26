@@ -143,7 +143,7 @@ export default {
        return this._format(this.currentTime)
      },
      endTime() {
-       return this._format(this.duration)
+       return this._format(this.duration) || this._format(0)
      },
      modeStyle() {
        return this.getCurrentMode == 0 ? 'icon-loop' : (this.getCurrentMode == 1 ? 'icon-sequence' : 'icon-random')

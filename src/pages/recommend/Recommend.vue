@@ -12,8 +12,8 @@
           <recommend-disc-list :discList="discList.list"/>
         </div>
       </div>
-      
     </recommend-scroll>
+    <router-view></router-view>
   </div>
 </template>
 <script>

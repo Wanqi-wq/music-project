@@ -6,7 +6,7 @@ export function getLyrics(song) {
     method: 'get',
     url: '/lrc',
     params: {
-      id:song.mid
+      id: song.mid
     }
   })
 }

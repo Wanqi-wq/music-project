@@ -60,10 +60,10 @@ export default {
         })
       //获取按要求歌手的信息
       for(let i in this.singers) {
-         getSingers(this.singerCategory[i].id).then(res => {
-           if(res.data.code === 200)
-         this.singers[i].list = res.data.data;
-       }) 
+        getSingers(this.singerCategory[i].id).then(res => {
+          if(res.data.code === 200)
+        this.singers[i].list = res.data.data;
+      }) 
       }
     }
   }

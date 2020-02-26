@@ -1,14 +1,16 @@
 <template>
   <ul>
-    <li v-for="(item,index) in discList" class="item" :key="index">
-      <div class="icon">
-        <img class="icon-img" v-lazy="item.imgurl">
-      </div>
-      <div class="text">
-        <h2 class="name">{{item.creator.name}}</h2>
-        <p class="desc">{{item.dissname}}</p>
-      </div>
-    </li>
+    
+      <li v-for="(item,index) in discList" class="item" :key="index" @click="toDisc(item.dissid)">
+        <div class="icon">
+          <img class="icon-img" v-lazy="item.imgurl">
+        </div>
+        <div class="text">
+          <h2 class="name">{{item.creator.name}}</h2>
+          <p class="desc">{{item.dissname}}</p>
+        </div>
+      </li>
+    
   </ul>
 </template>
 
@@ -22,12 +24,21 @@ export default {
         return []
       }
     }
+  },
+  methods: {
+    toDisc(mid) {
+    //跳转到具体的热门歌单页面
+    this.$router.push({
+      path:'/recommend/' + mid
+      })
+    }
   }
+  
 }
 </script>
 
 <style lang="stylus" scoped>
- @import "~assets/stylus/variable"
+@import "~assets/stylus/variable"
 .item
   display: flex
   box-sizing: border-box
