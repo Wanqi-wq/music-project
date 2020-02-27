@@ -2,8 +2,8 @@
   <div class="song-list">
     <ul v-for="(song,index) in songs" :key="song.mid">
       <li  class="item" >
-        <div class="rank" v-if="false">
-          <span ></span>
+        <div class="rank" v-if="rank">
+          <span :class="getClassCls(index)" class="text">{{getTextCls(index)}}</span>
         </div>
         <div tag="div" class="content" @click="getSong(songs,index)">
           <h2 class="name">{{song.songname}}</h2>
@@ -22,6 +22,10 @@ import { mapMutations } from 'vuex'
         songs: {
         type: Array,
         default: []
+      },
+      rank: {
+        type:Boolean,
+        default: false
       }
     },
     methods:{
@@ -30,8 +34,19 @@ import { mapMutations } from 'vuex'
       },
       getSong(songs,index) {
         this.$emit('select',{songs,index})
+      },
+      //用来判断是否应该设置前三名的标志
+      getClassCls(index) {
+        if(index < 3){
+          return `icon icon${index}`
+        }
+      },
+      //从第四名开始设置文案
+      getTextCls(index) {
+        return index > 2 ? index + 1 : ''
       }
-    }
+    },
+   
   }
 </script>
 
@@ -56,12 +71,12 @@ import { mapMutations } from 'vuex'
           width: 25px
           height: 24px
           background-size: 25px 24px
-         /*  &.icon0
-            bg-image('first')
+          &.icon0
+            bg-image('~assets/image/first')
           &.icon1
-            bg-image('second')
+            bg-image('~assets/image/second')
           &.icon2
-            bg-image('third') */
+            bg-image('~assets/image/third')
         .text
           color: $color-theme
           font-size: $font-size-large

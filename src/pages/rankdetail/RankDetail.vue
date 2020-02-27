@@ -1,5 +1,5 @@
 <template>
-  <music-list :rank="rank" :songs="rankList"/>
+  <music-list :rank="rank" :songs="rankList" :isRank="true"/>
 </template>
 
 <script>

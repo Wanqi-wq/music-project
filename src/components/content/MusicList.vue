@@ -16,7 +16,7 @@
     <scroll :data="songs" :listen-scroll="true" 
     class="list" ref="list" :probeType="3" @scroll="scroll">
       <div class="song-list-wrapper">
-        <song-list :songs="songs" @select="selectSong"></song-list>
+        <song-list :songs="songs" @select="selectSong" :rank="isRank"></song-list>
       </div>
     </scroll>
     
@@ -40,6 +40,10 @@
       Scroll
     },
     props: {
+      isRank: {
+        type: Boolean,
+        default: false
+      },
       singer: {
         type: Object,
         default() {
