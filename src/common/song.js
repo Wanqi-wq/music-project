@@ -31,18 +31,20 @@ export class Song {
 //创建song实例
 export function createSong(musicData) {
   return new Song({
-            mid: musicData.songmid || musicData.mid,
+            mid: musicData.songmid || musicData.mid || musicData.id,
             singer: singerName(musicData.singer),
             songname: musicData.songname || musicData.name ,
-            albumname: musicData.albumname || musicData.album.name,
-            image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid || musicData.mid}`,
-            duration: musicData.interval,
-            url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid || musicData.mid}`
+            albumname: musicData.albumname || musicData.album && musicData.album.name ||musicData.name,
+            image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid || musicData.mid || musicData.id}`,
+            duration: musicData.interval || musicData.time,
+            url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid || musicData.mid || musicData.id}`
           }) 
 }
 //对singer的名字进行处理，名字可能有好几个
 function singerName(singer) {
-  if(singer) {
+  if(typeof(singer) === 'string'){
+    return singer
+  }else if(singer) {
     let arr = []
     singer.forEach( item => {
       arr.push(item.name)

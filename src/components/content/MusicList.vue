@@ -3,8 +3,8 @@
     <div class="back" @click="back">
       <i class="icon-back"></i>
     </div>
-    <h1 class="title">{{disc.title || singer.name }}</h1>
-    <div class="bg-image"  ref="bgImage" :style="{'background-image':bgStyle}">
+    <h1 class="title">{{disc.title || singer.name || rank.name}}</h1>
+    <div class="bg-image"  ref="bgImage" :style="{'background-image':bgStyle }">
       <div class="play-wrapper">
         <div ref="playBtn"  class="play" v-show="songs.length">
           <i class="icon-play"></i>
@@ -57,14 +57,19 @@
         default() {
           return {}
         }
+      },
+      rank: {
+        type: Object,
+        default() {
+          return {}
+        }
       }
     },
     created() {
-      console.log(this.disc.title,this.disc)
     },
     computed: {
       bgStyle() {
-        return `url(${this.disc.image || this.singer.img})`
+        return `url(${this.rank.list && this.rank.list[0].pic || this.disc.image || this.singer.img  }`
       }
     },
     mounted() {
@@ -99,11 +104,14 @@
       },
       //根据不同的url返回不同的页面
       back() {
-        if(this.$route.path.includes('singer')) {
+        /* if(this.$route.path.includes('singer')) {
           this.$router.push('/singer')
         }else if(this.$route.path.includes('recommend')) {
           this.$router.push('/recommend')
-        }
+        }else if(this.$route.path.includes('rank')) {
+          this.$router.push('/rank')
+        } */
+        this.$router.go(-1)
         
       },
       //修改vuex中修改的歌曲信息

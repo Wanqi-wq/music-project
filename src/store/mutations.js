@@ -27,5 +27,9 @@ export default  {
   },
   setCurrentMode(state, index) {
     state.currentMode = index
+  },
+  //设置当前的榜单
+  setRank(state,item) {
+    state.currentRank = item
   }
 }

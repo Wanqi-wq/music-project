@@ -14,7 +14,8 @@ const store = new Vuex.Store({
     currentIndex: 0,
     playing: false,
     fullScreen: false,
-    currentMode: 0
+    currentMode: 0,
+    currentRank: {}
   },
   mutations,
   actions,
