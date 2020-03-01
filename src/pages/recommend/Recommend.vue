@@ -62,7 +62,6 @@ export default {
     },
     //banner图加载完成后，调用better-scroll的refresh
     loadImage() {
-      console.log('refresh')
       this.$refs.scroll.refresh()
     },
     //每下拉一次，都刷新一次数据

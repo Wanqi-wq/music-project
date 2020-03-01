@@ -4,7 +4,9 @@ import router from 'router'
 import store from 'store'
 import fastClick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
-
+/* import VConsole from 'vconsole'
+let vConsole = new VConsole()
+console.log('test') 移动端调试用*/
 Vue.use(VueLazyload,{
   preLoad: 1.3,
   loading: require('assets/image/1.png'),

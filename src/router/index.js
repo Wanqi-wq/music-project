@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Recommend from 'pages/recommend/Recommend'
-import Singer from 'pages/singer/Singer'
-import Search from 'pages/search/Search'
-import Rank from 'pages/rank/Rank'
-import SingerDetail from 'pages/singerdetail/SingerDetail'
-import RecommendDisc from 'pages/disc/RecommendDisc'
-import RankDetail from 'pages/rankdetail/RankDetail'
-import UserCenter from 'pages/usercenter/UserCenter'
-
+const Recommend = () => import('pages/recommend/Recommend')
+const Singer = () => import('pages/singer/Singer')
+const Search = () => import('pages/search/Search')
+const Rank = () => import('pages/rank/Rank')
+const SingerDetail = () => import('pages/singerdetail/SingerDetail')
+const RecommendDisc = () => import('pages/disc/RecommendDisc')
+const RankDetail = () => import('pages/rankdetail/RankDetail')
+const UserCenter = () => import('pages/usercenter/UserCenter')
 
 Vue.use( VueRouter )
 

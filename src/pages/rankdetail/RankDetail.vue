@@ -29,9 +29,7 @@ export default {
     _getRank() {
       //获取指定格式的歌曲
       if(this.rank.list) {
-        console.log('tgt')
         this.rankList = this.getRank.list.map( item => createSong(item))
-        console.log(this.rankList)
       }
     }
   }

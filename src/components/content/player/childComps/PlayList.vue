@@ -86,7 +86,6 @@ export default {
     },
     selectSong(song, index) {
       //点击哪首歌，哪首歌就播放，同时index改变
-      console.log(this.getCurrentMode)
       if(this.getCurrentMode === 2){
         //如果是随机播放模式，index改变 
         index = this.getSongList.find(item => item.mid === this.getSong.mid)

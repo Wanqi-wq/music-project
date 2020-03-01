@@ -36,9 +36,6 @@ export default {
     setQuery(item) {
       this.$refs.searchbox.setQuery(item)
     }
-  },
-  created() {
-    console.log(hotList)
   }
 }
 </script>

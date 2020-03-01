@@ -51,7 +51,6 @@ export default {
           if(res.data.code === 200) {
             //获得排行榜的数组用于遍历
             this.topList.push({name:i,list:res.data.data})
-            console.log(this.topList)
           }
         }).catch(err => {
           console.log(err)

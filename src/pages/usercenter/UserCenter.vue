@@ -43,7 +43,6 @@ export default {
     },
     selectSong({songs,index}) {
       //将选中的歌曲插入到播放列表中
-      console.log(songs[index])
       this.insertSong(createSong(songs[index]))
     },
     handleBottom(playList) {
