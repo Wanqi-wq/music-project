@@ -1,3 +1,5 @@
+import { setFavorite } from 'common/cache'
+
 export default  {
   changeSong(state, {songs, index }) {
     state.currentIndex = index,
@@ -28,8 +30,16 @@ export default  {
   setCurrentMode(state, index) {
     state.currentMode = index
   },
+  setSequenceList(state, list) {
+    state.sequenceList = list
+  },
   //设置当前的榜单
   setRank(state,item) {
     state.currentRank = item
+  },
+  //设置收藏歌单
+  setFavouriteList(state,list) {
+    state.favouriteList = list
+    setFavorite(list)
   }
 }

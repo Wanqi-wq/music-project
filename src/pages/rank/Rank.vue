@@ -1,5 +1,5 @@
 <template>
-  <div class="rank" ref="rank">
+  <div ref="rank">
     <scroll :data="topList" class="toplist" ref="toplist">
       <ul>
         <li  class="item" v-for="(item,index) in topList" :key="index" @click="selectRank(item)">
@@ -22,12 +22,14 @@
 
 <script>
 import Scroll from 'components/common/Scroll'
+import { playListMixin } from 'common/mixins'
 
 import { getRank } from 'api/rank'
 import { rankIndex } from 'api/config'
 import { mapMutations } from 'vuex'
 export default {
   name: 'Rank',
+  mixins:[playListMixin],
   data() {
     return {
       topList:[]
@@ -67,7 +69,11 @@ export default {
       //跳转到榜单详情页
       this.$router.push('/rank/' + item.name) 
       
-      
+    },
+    handleBottom(playList) {
+      let bottom = playList && playList.length > 0 ? 60 : 0
+        this.$refs.toplist.$el.style.bottom = bottom + 'px'
+        this.$refs.toplist.refresh()
     },
     ...mapMutations(['setRank'])
   },
@@ -81,13 +87,11 @@ export default {
 @import "~assets/stylus/variable"
   @import "~assets/stylus/mixin"
 
-  .rank
-    position: fixed
-    width: 100%
-    top: 88px
-    bottom: 0
     .toplist
-      height: 100%
+      position: fixed
+      width: 100%
+      top: 88px
+      bottom: 0
       overflow: hidden
       .item
         display: flex

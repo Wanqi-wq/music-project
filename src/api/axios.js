@@ -7,7 +7,8 @@ export default function(options) {
       baseURL: BaseURL,
       method: options.method || 'get',
       url: options.url,
-      params: options.params  || {}
+      params: options.params  || {},
+      headers:{'Content-Type': 'application/json;charset=UTF-8'}
     }).then(data => resolve(data)).catch(err => reject(err))
   })
 }

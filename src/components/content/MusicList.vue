@@ -120,7 +120,6 @@
       },
       //修改vuex中修改的歌曲信息
       selectSong({songs,index}) {
-        console.log(index)
         this.selectSongs({songs,index})
       },
       //让列表距底部的宽度根据有无播放器自适应

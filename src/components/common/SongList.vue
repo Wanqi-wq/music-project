@@ -21,7 +21,9 @@ import { mapMutations } from 'vuex'
     props: {
         songs: {
         type: Array,
-        default: []
+        default() {
+          return []
+        }
       },
       rank: {
         type:Boolean,

@@ -7,6 +7,8 @@ import Rank from 'pages/rank/Rank'
 import SingerDetail from 'pages/singerdetail/SingerDetail'
 import RecommendDisc from 'pages/disc/RecommendDisc'
 import RankDetail from 'pages/rankdetail/RankDetail'
+import UserCenter from 'pages/usercenter/UserCenter'
+
 
 Vue.use( VueRouter )
 
@@ -45,6 +47,9 @@ export default new VueRouter({
         component: RankDetail
       }
     ]
+  },{
+    path: '/user',
+    component: UserCenter
   },{
     path: '*',
     redirect: '/recommend'

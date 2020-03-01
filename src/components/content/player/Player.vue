@@ -1,16 +1,16 @@
 <template>
   <div class="player" >
     <transition name="normal">
-      <div class="normal-player" v-show="getFullScreen" v-if="getSong.mid">
+      <div class="normal-player" v-show="getFullScreen" v-if="getSong && getSong.mid">
         <div class="background">
-          <img width="100%" height="100%" :src="getSong.image">
+          <img width="100%" height="100%" :src="getSong && getSong.image">
         </div>
         <div class="top">
           <div class="back" @click="close">
             <i class="icon-back"></i>
           </div>
-          <h1 class="title" >{{getSong.songname}}</h1>
-          <h2 class="subtitle">{{getSong.singer}}</h2>
+          <h1 class="title" >{{getSong && getSong.songname}}</h1>
+          <h2 class="subtitle">{{getSong && getSong.singer}}</h2>
         </div>
         <div class="middle"
         @touchstart="touchStart"
@@ -19,7 +19,7 @@
           <div class="middle-l" ref="middleL">
             <div class="cd-wrapper" ref="cdWrapper">
               <div class="cd" :class="isRotate">
-                <img class="image" :src="getSong.image" >
+                <img class="image" :src="getSong.image && getSong.image" >
               </div>
             </div>
             <div class="playing-lyric-wrapper">
@@ -67,8 +67,8 @@
             <div class="icon i-right" >
               <i  class="icon-next" @click="next"></i>
             </div>
-            <div class="icon i-right">
-              <i  class="icon"></i>
+            <div class="icon i-right" @click.stop="toggleFavourite(getSong)">
+              <i  class="icon" :class="getFavorite(getSong)"></i>
             </div>
           </div>
         </div>
@@ -77,25 +77,25 @@
 
     <!-- 底部的小播放器 -->
     <transition name="mini">
-      <div class="mini-player" v-if="getSong.mid" v-show="!getFullScreen" @click.stop="open">
+      <div class="mini-player" v-if="getSong && getSong.mid" v-show="!getFullScreen" @click.stop="open">
         <div class="icon" >
-          <img  width="40" height="40" :src="getSong.image" :class="isRotate">
+          <img  width="40" height="40" :src="getSong && getSong.image" :class="isRotate">
         </div>
         <div class="text">
-          <h2 class="name">{{getSong.songname}}</h2>
-          <p class="desc" >{{getSong.singer}}</p>
+          <h2 class="name">{{getSong && getSong.songname}}</h2>
+          <p class="desc" >{{getSong && getSong.singer}}</p>
         </div>
         <div class="control"> 
           <i @click.stop="togglePlaying" class="icon-mini" :class="playIconMini"></i>
         </div>
         <div class="control">
-          <i class="icon-playlist" ></i>
+          <i class="icon-playlist" @click.stop="openPlayList"></i>
         </div>
       </div>
     </transition>
-
+    <play-list ref="openList"/>
     <!-- h5播放器 -->
-    <audio ref="audio" :src="getSong.url" @canplay="play" 
+    <audio ref="audio" :src="getSong && getSong.url" @canplay="play" 
     @timeupdate="timeChange"
     @ended="songEnd"></audio>
   </div>
@@ -103,13 +103,16 @@
 
 <script>
 import ProgressBar from './childComps/Progress'
+import PlayList from './childComps/PlayList'
 import Lyric from 'lyric-parser'
 import Scroll from 'components/common/Scroll'
 
+import { favourite } from 'common/mixins'
 import { RandomArr } from 'common/utils'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'player',
+  mixins:[favourite],
   data() {
     return {
       //记录歌曲是否是第一次加载
@@ -121,8 +124,7 @@ export default {
        currentLyric: null,
        currentlineNum: 0,
        currentShow: 'cd',
-       playingLyric: ''
-
+       playingLyric: ''  
     }
    
   },
@@ -156,6 +158,10 @@ export default {
   activated() {
   },
   methods: {
+    //打开当前播放列表
+    openPlayList() {
+      this.$refs.openList.open()
+    },
     //点击关闭按钮时，收起播放器
     close() {
       this.closeScreen()
@@ -315,11 +321,11 @@ export default {
     handlerLyric({lineNum, txt}) {
        this.currentlineNum = lineNum
       if(lineNum < 5) {
-        this.$refs.lyricList.scroll.scrollTo(0, 0, 1000) 
+        this.$refs.lyricList && this.$refs.lyricList.scroll.scrollTo(0, 0, 1000) 
       }else{
         let line = lineNum - 5
         let dom = this.$refs.lyricLine[line]
-        this.$refs.lyricList.scrollToElement(dom,1000)
+        this.$refs.lyricList && this.$refs.lyricList.scrollToElement(dom,1000)
       }
       //记录当前播放的这句歌词
       this.playingLyric = txt
@@ -413,23 +419,29 @@ export default {
 
     //如果index改变，则歌曲也要播放
     getCurrentIndex() {
-      this.$refs.audio.play()
+      if(!this.getSong) {
+        return
+      }
+      this.$refs.audio.play() 
     },
     //如果歌曲发生变化，调用获取歌词的函数
     getSong(newSong) {
       //如果当前歌词有的话，当前歌曲发生变化时，则停掉上一个
-      console.log('变化')
       if(this.currentLyric) {
         this.currentLyric.stop()
       }
-       
+      if(!newSong) {
+        return
+      }
       //使用Lyric插件进行歌词解析
       newSong.ObtainLyrics(newSong).then( lyric => {
+        if(this.currentLyric) {
+        this.currentLyric.stop()
+      }
         this.currentLyric = new Lyric(lyric, this.handlerLyric)
         if(this.getPlaying) {
           this.currentLyric.play()
         }
-        console.log(this.currentLyric)
       }).catch(() => {
         this.currentLyric = null
         this.playingLyric = '',
@@ -440,7 +452,8 @@ export default {
   },
   components: {
     ProgressBar,
-    Scroll
+    Scroll,
+    PlayList
   }
 }
 </script>

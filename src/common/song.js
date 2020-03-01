@@ -36,7 +36,7 @@ export function createSong(musicData) {
             songname: musicData.songname || musicData.name ,
             albumname: musicData.albumname || musicData.album && musicData.album.name ||musicData.name,
             image: `https://v1.itooi.cn/tencent/pic?id=${musicData.songmid || musicData.mid || musicData.id}`,
-            duration: musicData.interval || musicData.time,
+            duration: musicData.interval || musicData.time || musicData.duration,
             url:`https://v1.itooi.cn/tencent/url?id=${musicData.songmid || musicData.mid || musicData.id}`
           }) 
 }

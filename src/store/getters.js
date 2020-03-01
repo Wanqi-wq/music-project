@@ -6,5 +6,7 @@ export const getFullScreen = state => state.fullScreen
 export const getCurrentMode = state => state.currentMode
 export const getSequenceList = state => state.sequenceList
 export const getRank = state => state.currentRank
+export const getFavoriteList = state => state.favouriteList
+
 
   
