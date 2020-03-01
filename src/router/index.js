@@ -12,7 +12,6 @@ const UserCenter = () => import('pages/usercenter/UserCenter')
 Vue.use( VueRouter )
 
 export default new VueRouter({
-  mode: 'history',
   routes:[{
     path: '/',
     redirect: '/recommend'
